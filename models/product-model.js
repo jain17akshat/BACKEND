@@ -12,4 +12,4 @@ panelcolor: String,
 textcolor: String
 
 });
-module.exports=mongoose.model("productsn",productSchema);
+module.exports=mongoose.model("product",productSchema);

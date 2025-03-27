@@ -1,26 +1,20 @@
+
 const mongoose=require('mongoose')
-//  mongoose.coonect("mongoose://127.0.0.1:27017/BACKEND");
-const userSchema=mongoose.Schema({
-    fullname : {
-    type: String,
+const ownerSchema=mongoose.Schema({
+    fullname: {
+     type: String,
     minLength : 3,
     trim:true,
     },
     email : String ,
-    password : String,
-    cart:{
-        type : Array,
-        
-        default : []
-    },
-
-isadmin:Boolean,
-orders:{
+    password : String,  
+products :{
     type:Array,
     default:[]
 },
-contact:Number,
-picture:String,
+
+picture : String,
+gstin : String,
 
 });
-module.exports=mongoose.model("user",userSchema);
+module.exports=mongoose.model("owner",ownerSchema);
