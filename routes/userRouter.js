@@ -1,26 +1,12 @@
-const express =require("express");
-const userModel = require("../models/user-model");
-const router =express.Router();
+const express = require("express");
+const router = express.Router();
+const { registerUser }=require("../controllers/authController")
 
-router.get("/",function(req,res){
-    res.render("index");
+
+router.get("/", function (req, res) {
+  res.send("hey its working");
 });
 
-router.post("/register", async function (req, res) {
-    try {
-      let { email, password, fullname } = req.body;
-  
-      let user = await userModel.create({
-        email,
-        password,
-        fullname,
-      });
-  
-      res.status(201).json(user); // Send success response with status code 201
-    } catch (err) {
-        res.send(err.message);
-    }
-  });
-  
+router.post("/register",registerUser);
 
-module.exports=router;
+module.exports = router;
