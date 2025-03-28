@@ -2,8 +2,6 @@ const express=require("express")
 const router=express.Router();
 const ownerModel=require("../models/owner-model")
 
-
-
  if(process.env.Node_ENV === "development"){
     router.post("/create",async function(req,res){
   let owners=await ownerModel.find();
@@ -23,7 +21,14 @@ let createdOwner= await  ownerModel.create({
   res.status(201).send(createdOwner);
     })  
  }
- router.get("/",function(req,res){
-    res.send("hey i am also working");
-})
+
+
+
+ router.get("/admin", function (req, res) {
+  res.render("createproducts", { 
+      success: req.flash("success") || "", 
+      error: req.flash("error") || "" 
+  });
+});
+
 module.exports=router;
