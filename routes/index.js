@@ -16,48 +16,45 @@
 
 // module.exports=router;
 
+// const express = require("express");
+// const router = express.Router();
+// const isLoggedin = require("../middlewares/isLoggedin"); // Ensure this file exists!
+// const ownerModel = require("../models/owner-model");
+// const productModel = require("../models/product-model");
+// router.get("/", function (req, res) {
+//     let error = req.flash("error");
+//     let success = req.flash("success");
+//     res.render("index", { error,success });
+// });
+
+// router.get("/shop", isLoggedin, async function (req, res) {
+//    let products=await productModel.find()
+
+//     res.render("shop", { products,  success });
+// });
+
+// module.exports = router;
 const express = require("express");
 const router = express.Router();
 const isLoggedin = require("../middlewares/isLoggedin"); // Ensure this file exists!
+const ownerModel = require("../models/owner-model");
+const productModel = require("../models/product-model");
 
 router.get("/", function (req, res) {
-    let error = req.flash("error");
-    let success = req.flash("success");
-    res.render("index", { error,success });
+    let success = req.flash("success") || ""; // Ensure success is always defined
+    res.render("index", { success });
 });
 
-router.get("/shop", isLoggedin, function (req, res) {
-    let products = [
-        {
-            name: "Nike Air Max",
-            price: 5999,
-            bgcolor: "#f3f4f6",
-            panelcolor: "#e5e7eb",
-            textcolor: "#000000",
-            image: "/images/nike_air_max.jpg", // Add valid image paths
-        },
-        {
-            name: "Adidas Ultraboost",
-            price: 6999,
-            bgcolor: "#ffffff",
-            panelcolor: "#e0e0e0",
-            textcolor: "#333333",
-            image: "/images/adidas_ultraboost.jpg",
-        },
-        {
-            name: "Puma Running Shoes",
-            price: 4999,
-            bgcolor: "#fef3c7",
-            panelcolor: "#fde68a",
-            textcolor: "#000000",
-            image: "/images/puma_running.jpg",
-        },
-    ];
+router.get("/shop", isLoggedin, async function (req, res) {
+    try {
+        let products = await productModel.find();
+        let success = req.flash("success") || ""; // Define success inside this route
 
-    let error = req.flash("error");
-    let success = req.flash("success");
-
-    res.render("shop", { products, error, success });
+        res.render("shop", { products, success });
+    } catch (err) {
+        console.error("Error fetching products:", err);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 module.exports = router;
