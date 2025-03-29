@@ -17,6 +17,6 @@ let user=await userModel.findOne({email:decoded.email}).select("-password");
 } 
 catch (err) {
     req.flash("error","something went wrong");
-    req.redirect("/")
+    res.redirect("/")
 }
-}
+};
