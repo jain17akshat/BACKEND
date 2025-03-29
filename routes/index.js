@@ -67,7 +67,7 @@ const productModel = require("../models/product-model");
 router.get("/", function (req, res) {
     let error = req.flash("error") || ""; // Ensure error is always defined
     let success = req.flash("success") || ""; // Ensure success is always defined
-    res.render("index", { error, success });
+    res.render("index", { error, success ,loggedin:false});
 });
 
 router.get("/shop", isLoggedin, async function (req, res) {

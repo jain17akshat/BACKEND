@@ -91,9 +91,11 @@
                             <h3 class="text-lg font-semibold"><%= product.name %></h3>
                             <h4 class="text-md font-medium">₹ <%= product.price %></h4>
                         </div>
-                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition" href="#">
-                            <i class="ri-add-line text-xl"></i>
-                        </a>
+                        <a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 transition" 
+   href="/cart/add/<%= product.id %>">
+    <i class="ri-add-line text-xl"></i>
+</a>
+
                     </div>
                 </div>
             <% }) %>
